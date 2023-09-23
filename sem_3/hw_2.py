@@ -1,3 +1,5 @@
+from typing import List, Tuple
+
 text_1 = 'Москва — столица России, город федерального значения, административный центр Центрального\
         федерального округа и центр Московской области, в состав которой не входит. Мегаполис; крупнейший\
         по численности населения город России и её субъект — 13 104 177 человек (2023), самый населённый\
@@ -24,12 +26,15 @@ text_1 = 'Москва — столица России, город федера�
         кластеров мира (Глобальный инновационный индекс, 2022 год).'
 
 
-def ten_popular(text: str) -> list[str]:
-    delete = ".,!?;:-[]{}()="
+def ten_popular(text: str) -> list[tuple[int, str]]:
+    delete = ".,!?;:-—[]{}()=0123456789"
     for i in delete:
         text = text.replace(i, "")
-    text = text.lower()
-    return sorted(set(text.split()), key=lambda x: text.count(x))[-10:]
+    # text = text.lower()
+    # return sorted(set(text.split()), key=lambda x: text.count(x))[-10:]
+    text = text.lower().split()
+    lst_unique = [(text.count(i), i) for i in set(text)]
+    return sorted(lst_unique, reverse=True)
 
 
 print(ten_popular(text_1))
