@@ -1,95 +1,89 @@
 """
-Напишите программу банкомат.
+Задание 6
 Начальная сумма равна нулю
-Допустимые действия: пополнить, снять, выйти
-Сумма пополнения и снятия кратны 50 у.е.
-Процент за снятие — 1.5% от суммы снятия, но не менее 30 и не более 600 у.е.
-После каждой третей операции пополнения или снятия начисляются проценты - 3%
-Нельзя снять больше, чем на счёте
-При превышении суммы в 5 млн, вычитать налог на богатство 10% перед каждой операцией,
-даже ошибочной.
-Любое действие выводит сумму денег
+✔ Допустимые действия: пополнить, снять, выйти
+✔ Сумма пополнения и снятия кратны 50 у.е.
+✔ Процент за снятие — 1.5% от суммы снятия, но не менее 30 и не более 600 у.е.
+✔ После каждой третей операции пополнения или снятия начисляются проценты - 3%
+✔ Нельзя снять больше, чем на счёте
+✔ При превышении суммы в 5 млн, вычитать налог на богатство 10% перед каждой
+операцией, даже ошибочной
+✔ Любое действие выводит сумму денег
 """
 
+bank = 0
+count = 0
+percent_take = 0.015
+percent_add = 0.03
+percent_tax = 0.01
 
-def fill(money: int):
+
+def exit_bank():
+    print("Всего доброго, приходите к нам еще!\n")
+    exit()
+
+
+def add_bank(cash: float) -> None:
+    global bank
+    global count
+    bank += cash
+    count += 1
+    if count % 3 == 0:
+        bank = bank + percent_add * bank
+        print("начислены проценты в размере: ", percent_add * bank)
+
+
+def take_bank(cash: float) -> None:
+    global bank
+    global count
+    bank -= cash
+    count += 1
+
+    if cash*percent_take < 30:
+        bank -= 30
+        print("списаны проценты за cash: ", 30)
+    elif cash*percent_take > 600:
+        bank -= 600
+        print("списаны проценты за cash: ", 600)
+    else:
+        bank -= cash * percent_take
+        print("списаны проценты за cash: ", cash * percent_take)
+    if count % 3 == 0:
+        bank = bank + percent_add * bank
+        print("начислены проценты в размере: ", percent_add * bank)
+
+
+def check_bank() -> int:
     while True:
-        money_to_fill = int(input("Какую сумму (кратную 50 у.е.) вы хотите внести: "))
-        if money_to_fill % 50 != 0:
-            print("Введите сумму, кратную 50.")
+        cash = int(input("Введите сумму опреации кратно 50\n"))
+        if cash % 50 == 0:
+
+            return cash
+
+
+while True:
+    action = input("1 - снять деньги\n2 - пополнить\n3 - баланс\n4 -выйти\n")
+
+    if action == '1':
+        if bank > 5_000_000:
+            bank = bank - bank * percent_tax
+            print ("списан налог на богатство: ", bank * percent_tax)
+        cash = check_bank()
+        if cash < bank:
+            take_bank(cash)
         else:
-            break
-
-    return money + money_to_fill
-
-
-def get_money(money: int):
-    while True:
-        money_to_take = int(input("Какую сумму (кратную 50 у.е.) вы хотите снять: "))
-        percent = money_to_take * 0.015
-        if percent < 30:
-            money_with_percent = money_to_take + 30
-        elif percent > 600:
-            money_with_percent = money_to_take + 600
-        else:
-            money_with_percent = money_to_take + percent
-
-        if money_to_take % 50 != 0:
-            print("Введите сумму, кратную 50.")
-        elif money_with_percent > money:
-            print("Недостаточно средств. Введите меньшую сумму.")
-        else:
-            break
-
-    return money - money_with_percent
-
-
-def you_wont_be_rich(money: int):
-    if money > 5000000:
-        money *= 0.9
-    return money
-
-
-def check_counter(counter: int, money: int):
-    counter += 1
-    if counter == 3:
-        money *= 1.03
-        counter = 0
-    return counter, money
-
-
-def bank():
-    money = 0
-    counter = 0
-    while True:
-        print("1. Пополнить счет.")
-        print("2. Снять наличные.")
-        print("3. Выйти.")
-        while True:
-            user_choice = int(input("Выберите номер операции: "))
-            if user_choice not in [1, 2, 3]:
-                print("Неверный ввод. Попробуйте еще раз.")
-                money = you_wont_be_rich(money)
-                print(money)
-            else:
-                break
-
-        if user_choice == 1:
-            money = you_wont_be_rich(money)
-            money = fill(money)
-            counter, money = check_counter(counter, money)
-            print(money)
-        elif user_choice == 2:
-            money = you_wont_be_rich(money)
-            money = get_money(money)
-            counter, money = check_counter(counter, money)
-            print(money)
-        else:
-            money = f'Ваш баланс: {you_wont_be_rich(money)}'
-            print("До свидания!")
-            print(money)
-            return
-
-
-if __name__ == "__main__":
-    bank()
+            print("no money\n")
+        if bank > 5_000_000:
+            bank = bank - bank * percent_tax
+            print ("списан налог на богатство: ", bank * percent_tax)
+        print("Баланс = ", bank)
+    elif action == '2':
+        add_bank(check_bank())
+        if bank > 5_000_000:
+            bank = bank - bank * percent_tax
+            print ("списан налог на богатство: ", bank * percent_tax)
+        print("Баланс = ", bank)
+    elif action == '3':
+        print("Баланс = ", bank)
+    else:
+        exit_bank()
