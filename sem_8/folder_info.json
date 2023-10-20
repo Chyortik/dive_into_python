@@ -1,0 +1,68 @@
+{
+  "..\\sem_8": {
+    "classwork_1.py": {
+      "size": 1434,
+      "file_or_folder": "file"
+    },
+    "classwork_2.py": {
+      "size": 1342,
+      "file_or_folder": "file"
+    },
+    "classwork_3.py": {
+      "size": 812,
+      "file_or_folder": "file"
+    },
+    "classwork_4.py": {
+      "size": 839,
+      "file_or_folder": "file"
+    },
+    "classwork_5.py": {
+      "size": 0,
+      "file_or_folder": "file"
+    },
+    "classwork_6.py": {
+      "size": 0,
+      "file_or_folder": "file"
+    },
+    "classwork_7.py": {
+      "size": 0,
+      "file_or_folder": "file"
+    },
+    "data.csv": {
+      "size": 60,
+      "file_or_folder": "file"
+    },
+    "data.json": {
+      "size": 108,
+      "file_or_folder": "file"
+    },
+    "folder_info.csv": {
+      "size": 0,
+      "file_or_folder": "file"
+    },
+    "folder_info.json": {
+      "size": 0,
+      "file_or_folder": "file"
+    },
+    "folder_info.pickle": {
+      "size": 0,
+      "file_or_folder": "file"
+    },
+    "homework.py": {
+      "size": 1940,
+      "file_or_folder": "file"
+    },
+    "json_in.json": {
+      "size": 358,
+      "file_or_folder": "file"
+    },
+    "result.json": {
+      "size": 284,
+      "file_or_folder": "file"
+    },
+    "__init__.py": {
+      "size": 0,
+      "file_or_folder": "file"
+    }
+  }
+}
